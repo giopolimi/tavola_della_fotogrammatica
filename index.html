@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tavola Periodica dei Generi Fotografici</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0d0d0d; overflow-x: hidden; }
+    canvas { display: block; }
+
+    /* Toolbar CSV — minimalista, fuori dal canvas */
+    #csv-toolbar {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #111;
+      border: 0.5px solid #222;
+      border-radius: 4px;
+      padding: 6px 14px;
+      z-index: 200;
+      font-family: 'Space Mono', monospace;
+    }
+    #csv-toolbar label {
+      font-size: 8px;
+      color: #444;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    #csv-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      background: none;
+      border: 0.5px solid #2a2a2a;
+      color: #666;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+    #csv-btn:hover { border-color: #d4a843; color: #d4a843; }
+    #csv-file { display: none; }
+    #csv-status { font-size: 8px; color: #444; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+
+<!-- Il canvas p5.js viene montato qui automaticamente -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+<script src="sketch.js"></script>
+
+<script>
+  document.getElementById('csv-file').addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      window.loadGenresFromCSV(ev.target.result);
+      document.getElementById('csv-status').textContent = `✓ ${file.name}`;
+    };
+    reader.readAsText(file);
+  });
+</script>
+
+</body>
+</html>
