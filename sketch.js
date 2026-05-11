@@ -3,187 +3,173 @@
 // ============================================================
 
 const CATS = {
-  science:     { label:"Scientifico",      abbr:"Scienza",   bg:[23,95,165],   sym:[133,183,235], border:[12,68,124]  },
-  landscape:   { label:"Architettura",     abbr:"Archit.",   bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
-  nature:      { label:"Naturalistica",    abbr:"Natura",    bg:[50,140,40],   sym:[130,210,100], border:[25,90,15]   },
-  landscape2:  { label:"Paesaggio",        abbr:"Paesaggio", bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
-  astro:       { label:"Astrofotografia",  abbr:"Astro",     bg:[28,28,100],   sym:[120,130,220], border:[15,15,70]   },
-  travel:      { label:"Viaggio",          abbr:"Viaggio",   bg:[180,100,20],  sym:[240,180,90],  border:[110,60,8]   },
-  documentary: { label:"Documentaristica", abbr:"Doc.",      bg:[186,117,23],  sym:[250,199,117], border:[99,56,6]    },
-  events:      { label:"Eventi",           abbr:"Eventi",    bg:[100,60,150],  sym:[180,150,220], border:[65,35,110]  },
-  action:      { label:"Azione",           abbr:"Azione",    bg:[200,60,30],   sym:[240,150,120], border:[130,35,12]  },
-  street:      { label:"Urbana",           abbr:"Urbana",    bg:[83,74,183],   sym:[175,169,236], border:[60,52,137]  },
-  portrait:    { label:"Ritratto",         abbr:"Ritratto",  bg:[152,53,86],   sym:[240,153,123], border:[113,43,19]  },
-  nude:        { label:"Nudo",             abbr:"Nudo",      bg:[170,80,110],  sym:[230,160,190], border:[110,45,70]  },
-  fashion:     { label:"Moda",             abbr:"Moda",      bg:[212,83,126],  sym:[237,147,177], border:[114,36,62]  },
-  stilllife:   { label:"Still Life",       abbr:"Still L.",  bg:[99,153,34],   sym:[151,196,89],  border:[39,80,10]   },
-  abstract:    { label:"Astratta",         abbr:"Astratto",  bg:[140,100,180], sym:[200,170,230], border:[90,60,130]  },
-  fineart:     { label:"Fine Art",         abbr:"Fine Art",  bg:[80,60,50],    sym:[175,155,130], border:[50,35,25]   },
-  technique:   { label:"Tecniche",         abbr:"Tecniche",  bg:[40,40,40],    sym:[180,180,180], border:[80,80,80]   },
+  science:     { label:"Scientifico",      abbr:" SCIENZA",   bg:[23,95,165],   sym:[133,183,235], border:[12,68,124]  },
+  landscape:   { label:"Architettura",     abbr:" ARCHIT.",   bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
+  nature:      { label:"Naturalistica",    abbr:" NATURA",    bg:[50,140,40],   sym:[130,210,100], border:[25,90,15]   },
+  landscape2:  { label:"Paesaggio",        abbr:" PAESAGGIO", bg:[15,110,86],   sym:[93,202,165],  border:[8,80,65]    },
+  astro:       { label:"Astrofotografia",  abbr:" ASTROFOTO", bg:[28,28,100],   sym:[120,130,220], border:[15,15,70]   },
+  travel:      { label:"Viaggio",          abbr:" VIAGGIO",   bg:[180,100,20],  sym:[240,180,90],  border:[110,60,8]   },
+  documentary: { label:"Documentaristica", abbr:" DOCUMENT.", bg:[186,117,23],  sym:[250,199,117], border:[99,56,6]    },
+  events:      { label:"Eventi",           abbr:" EVENTI",    bg:[100,60,150],  sym:[180,150,220], border:[65,35,110]  },
+  action:      { label:"Azione",           abbr:" AZIONE",    bg:[200,60,30],   sym:[240,150,120], border:[130,35,12]  },
+  street:      { label:"Urbana",           abbr:" URBANA",    bg:[83,74,183],   sym:[175,169,236], border:[60,52,137]  },
+  portrait:    { label:"Ritratto",         abbr:" RITRATTO",  bg:[152,53,86],   sym:[240,153,123], border:[113,43,19]  },
+  nude:        { label:"Nudo",             abbr:" NUDO",      bg:[170,80,110],  sym:[230,160,190], border:[110,45,70]  },
+  fashion:     { label:"Moda",             abbr:" MODA",      bg:[212,83,126],  sym:[237,147,177], border:[114,36,62]  },
+  stilllife:   { label:"Still Life",       abbr:" STILL L.",  bg:[99,153,34],   sym:[151,196,89],  border:[39,80,10]   },
+  abstract:    { label:"Astratta",         abbr:" ASTRATTO",  bg:[140,100,180], sym:[200,170,230], border:[90,60,130]  },
+  fineart:     { label:"Fine Art",         abbr:" FINE ART",  bg:[80,60,50],    sym:[175,155,130], border:[50,35,25]   },
+  technique:   { label:"Tecniche",         abbr:" TECNICHE",  bg:[40,40,40],    sym:[180,180,180], border:[80,80,80]   },
 };
 
+// GENRE_GROUPS: il primo item di ogni gruppo è la categoria "padre" (image:'')
+// viene usato SOLO per la legenda/info, NON viene disegnato come cella
 const GENRE_GROUPS = [
   { cat:'science', items:[
-    {id:1, symbol:'Sc',name:'Scientifica & Tecnica',  desc:'Strumento di indagine in ambito scientifico, medico, forense. Privilegia accuratezza e riproducibilità. Antesignana del cinema (cronofotografia).',imageDesc:'Fenomeno fisico catturato con stroboscopia o microscopio',categoria:'Scientifica & Tecnica'},
-    {id:2, symbol:'Sg',name:'Scientifica generale',   desc:'Documentazione di esperimenti, fenomeni, oggetti di laboratorio.',imageDesc:'Esperimento di laboratorio documentato con rigore',categoria:'Scientifica & Tecnica'},
-    {id:3, symbol:'Mi',name:'Microfotografia',        desc:'Soggetti molto piccoli, attraverso microscopio ottico o elettronico.',imageDesc:'Cellula o cristallo visto al microscopio',categoria:'Scientifica & Tecnica'},
-    {id:4, symbol:'Mr',name:'Medica & Radiologica',   desc:'Documentazione clinica, dermatologica, chirurgica, radiografie.',imageDesc:'Radiografia o immagine medica diagnostica',categoria:'Scientifica & Tecnica'},
-    {id:5, symbol:'Fr',name:'Forense',                desc:'Scene del crimine, prove. Pioniere: Alphonse Bertillon (fine XIX sec.).',imageDesc:'Documentazione forense di scena del crimine',categoria:'Scientifica & Tecnica'},
-    {id:6, symbol:'Cf',name:'Cronofotografia',        desc:'Decomposizione del movimento in fotografie successive, antesignana del cinema.',imageDesc:'Sequenza multipla di un movimento su una stessa lastra',categoria:'Scientifica & Tecnica'},
+    {id:  1, symbol:'Sg', name:`Scientifica generale`, desc:`Documentazione di esperimenti, fenomeni, oggetti di laboratorio.`, image:'img/foto_sottogenere_93.jpeg', photographer:'Berenice Abbott', date:'1950', categoria:'Scientifica & Tecnica'},
+    {id:  2, symbol:'Mi', name:`Microfotografia`, desc:`Soggetti molto piccoli, attraverso microscopio ottico o elettronico.`, image:'img/foto_sottogenere_94.jpg', photographer:'Lennart Nilsson', date:'1965', categoria:'Scientifica & Tecnica'},
+    {id:  3, symbol:'Mr', name:`Medica & Radiologica`, desc:`Documentazione clinica, dermatologica, chirurgica, radiografie.`, image:'img/foto_sottogenere_95.jpg', photographer:'Wilhelm Röntgen', date:'1896', categoria:'Scientifica & Tecnica'},
+    {id:  4, symbol:'Fr', name:`Forense`, desc:`Scene del crimine, prove. Pioniere: Alphonse Bertillon (fine XIX sec.).`, image:'img/foto_sottogenere_96.jpg', photographer:'Alphonse Bertillon', date:'1914', categoria:'Scientifica & Tecnica'},
+    {id:  5, symbol:'Cf', name:`Cronofotografia`, desc:`Decomposizione del movimento in fotografie successive, antesignana del cinema.`, image:'img/foto_sottogenere_97.jpg', photographer:'Étienne-Jules Marey', date:'1890', categoria:'Scientifica & Tecnica'},
   ]},
   { cat:'landscape', items:[
-    {id:7, symbol:'Ar',name:'Architettura',           desc:'Edifici e spazi costruiti, con attenzione a forma, materiali, luce. Usa controllo prospettico (banco ottico, tilt-shift).',imageDesc:'Edificio fotografato con controllo della prospettiva',categoria:'Architettura'},
-    {id:8, symbol:'Ty',name:'Tipologica (Düsseldorf)',desc:'Inventario seriale di edifici/strutture dello stesso tipo, fotografate frontalmente con luce piatta.',imageDesc:'Serie di strutture simili in griglia comparativa',categoria:'Architettura'},
-    {id:9, symbol:'Ax',name:'Architettura esterni',   desc:'Edificio nel suo contesto, con luce naturale che ne modella i volumi.',imageDesc:"Edificio fotografato all'esterno con luce naturale",categoria:'Architettura'},
-    {id:10,symbol:'Ai',name:'Architettura interni',   desc:'Spazi interni, materiali, arredi, atmosfere.',imageDesc:'Interno di edificio con luce diffusa',categoria:'Architettura'},
-    {id:11,symbol:'Uc',name:'Arch. urbana & Costruito',desc:'Si concentra sul tessuto urbano stratificato.',imageDesc:'Tessuto urbano stratificato, strade e facciate',categoria:'Architettura'},
+    {id:  6, symbol:'Ty', name:`Tipologica (Düsseldorf)`, desc:`Inventario seriale di edifici/strutture dello stesso tipo, fotografate frontalmente con luce piatta.`, image:'img/W1siZiIsIjMwMzE5OSJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MTQ0MFx1MDAzZSJdXQ.jpg', photographer:'Bernd & Hilla Becher', date:'1988', categoria:'Architettura'},
+    {id:  7, symbol:'Ax', name:`Architettura esterni`, desc:`Edificio nel suo contesto, con luce naturale che ne modella i volumi.`, image:'img/Julius-Shulman-Case-Study-House-22-Pierre-Koenig-Los-Angeles-California-scaled.jpeg', photographer:'Julius Shulman', date:'1960', categoria:'Architettura'},
+    {id: 8, symbol:'Ai', name:`Architettura interni`, desc:`Spazi interni, materiali, arredi, atmosfere.`, image:'img/MS-04338-2000.jpg', photographer:'Candida Höfer', date:'1998', categoria:'Architettura'},
+    {id: 9, symbol:'Uc', name:`Architettura urbana & Costruito`, desc:`Si concentra sul tessuto urbano stratificato.`, image:'img/cour-15-rue-tiquetonne-2e-33ef66-small.jpg', photographer:'Eugène Atget', date:'1907', categoria:'Architettura'},
   ]},
   { cat:'nature', items:[
-    {id:12,symbol:'Nt',name:'Naturalistica',          desc:'Animali, piante, ecosistemi nel loro ambiente, spesso senza intervento umano visibile.',imageDesc:'Animale selvatico nel suo habitat',categoria:'Naturalistica'},
-    {id:13,symbol:'Bt',name:'Botanica & Flora',       desc:'Piante, fiori, dettagli vegetali, isolati o in habitat.',imageDesc:'Fiore o pianta con dettaglio botanico',categoria:'Naturalistica'},
-    {id:14,symbol:'Mk',name:'Macro',                  desc:'Soggetti molto piccoli con forte ingrandimento. Profondità di campo ridotta, focus stacking.',imageDesc:'Insetto ingrandito con profondità di campo ridotta',categoria:'Naturalistica'},
-    {id:15,symbol:'Bd',name:'Avifauna',               desc:'Sottocategoria del wildlife dedicata agli uccelli: in volo, in habitat, in comportamento riproduttivo.',imageDesc:'Uccello in volo o nel proprio habitat',categoria:'Naturalistica'},
-    {id:16,symbol:'Wl',name:'Wildlife',               desc:'Animali nel loro habitat. Si valutano comportamento, momento, luce, distanza.',imageDesc:'Animale selvatico nel suo habitat naturale',categoria:'Naturalistica'},
-    {id:17,symbol:'Fp',name:'Fauna polare & Cons.',   desc:'Fotografia della fauna polare e di ecosistemi sensibili, con finalità di conservazione.',imageDesc:'Fauna polare in ambiente artico o antartico',categoria:'Naturalistica'},
+    {id: 10, symbol:'Bt', name:`Botanica & Flora`, desc:`Piante, fiori, dettagli vegetali, isolati o in habitat.`, image:'img/Karl_Blossfeldt_-_Original_forms_of_art_(Urformen_der_Kunst)_-_(MeisterDrucke-1101526).jpg', photographer:'Karl Blossfeldt', date:'1928', categoria:'Naturalistica'},
+    {id: 11, symbol:'Mk', name:`Macro`, desc:`Soggetti molto piccoli con forte ingrandimento. Profondità di campo ridotta, focus stacking.`, image:'img/insect-5.0.0.0.jpg', photographer:'Levon Biss', date:'2016', categoria:'Naturalistica'},
+    {id: 12, symbol:'Bd', name:`Avifauna`, desc:`Sottocategoria del wildlife dedicata agli uccelli: in volo, in habitat, in comportamento riproduttivo.`, image:'img/07-greater-bird-of-paradise-courtship-display.jpg', photographer:'Tim Laman', date:'2010', categoria:'Naturalistica'},
+    {id: 13, symbol:'Wl', name:`Wildlife`, desc:`Animali nel loro habitat. Si valutano comportamento, momento, luce, distanza.`, image:'img/leopard-seal-offers-diver-paul-nicklen-a-dead-penguin-v0-5TyfCQ5L7zO8UUR5_I8k2SP8o9M8SOpW5JQNGRnJBmM.jpg', photographer:'Paul Nicklen', date:'2006', categoria:'Naturalistica'},
+    {id: 14, symbol:'Fp', name:`Fauna polare & Cons.`, desc:`Fotografia della fauna polare e di ecosistemi sensibili, con finalità di conservazione.`, image:'img/foto_sottogenere_102.jpg', photographer:'Paul Nicklen', date:'2006', categoria:'Naturalistica'},
   ]},
   { cat:'landscape2', items:[
-    {id:18,symbol:'Ps',name:'Paesaggio',              desc:'Rappresentazione di spazi naturali o antropizzati, attenzione a luce, meteo, geografia.',imageDesc:'Paesaggio naturale con luce naturale',categoria:'Paesaggio'},
-    {id:19,symbol:'Nx',name:'New Topographics',       desc:"Filiazione critica del paesaggio americano: territori modificati dall'uomo, ripresi senza enfasi estetica.",imageDesc:'Periferia o parcheggio ripresi con distanza neutra',categoria:'Paesaggio'},
-    {id:20,symbol:'Pw',name:'Paesaggi atmosferici',   desc:'Derivazione del paesaggio focalizzata sui fenomeni atmosferici (tempeste, uragani, aurore, nebbie).',imageDesc:'Tempesta o aurora fotografata in paesaggio',categoria:'Paesaggio'},
-    {id:21,symbol:'Pn',name:'Paesaggio naturale',     desc:"Montagne, deserti, foreste, fiumi. Tradizione americana: previsualizzazione, zone system.",imageDesc:'Montagna, deserto o foresta con luce naturale',categoria:'Paesaggio'},
-    {id:22,symbol:'Sw',name:'Paesaggio marino',       desc:"Mare e costa come soggetto. Spesso lavora sull'orizzonte, la lunga esposizione.",imageDesc:'Orizzonte marino con lunga esposizione',categoria:'Paesaggio'},
-    {id:23,symbol:'Pt',name:'Paesaggio notturno',     desc:'Lunghe esposizioni, scarsa luce, stelle, luna o luci artificiali.',imageDesc:'Paesaggio sotto cielo stellato con lunga esposizione',categoria:'Paesaggio'},
-    {id:24,symbol:'Cs',name:'Paesaggio urbano',       desc:"La città come organismo: skyline, architetture, vie, piazze.",imageDesc:'Skyline urbano con luce dorata o notturna',categoria:'Paesaggio'},
-    {id:25,symbol:'Pa',name:'Paesaggio aereo',        desc:'Vista dall\'alto (aereo, elicottero, drone). Grammatica per pattern e astrazione geometrica.',imageDesc:'Territorio visto dall\'alto con pattern geometrici',categoria:'Paesaggio'},
-    {id:26,symbol:'Pm',name:'Paesaggio minimalista',  desc:'Composizione ridotta a pochi elementi, ampi vuoti, riduzione tonale.',imageDesc:'Paesaggio essenziale con pochi elementi',categoria:'Paesaggio'},
+    {id: 15, symbol:'Nx', name:`New Topographics`, desc:`Filiazione critica del paesaggio americano: territori modificati dall'uomo, ripresi senza enfasi estetica.`, image:'img/d7hftxdivxxvm.cloudfront.net.jpeg', photographer:'Stephen Shore', date:'1974', categoria:'Paesaggio'},
+    {id: 16, symbol:'Pw', name:`Paesaggi atmosferici`, desc:`Derivazione del paesaggio focalizzata sui fenomeni atmosferici (tempeste, uragani, aurore, nebbie).`, image:'img/storm.jpeg', photographer:'Mitch Dobrowner', date:'2009', categoria:'Paesaggio'},
+    {id: 17, symbol:'Pn', name:`Paesaggio naturale`, desc:`Montagne, deserti, foreste, fiumi. Tradizione americana: previsualizzazione, zone system.`, image:'img/Adams_The_Tetons_and_the_Snake_River.jpg', photographer:'Ansel Adams', date:'1942', categoria:'Paesaggio'},
+    {id: 18, symbol:'Sw', name:`Paesaggio marino`, desc:`Mare e costa come soggetto. Spesso lavora sull'orizzonte, la lunga esposizione.`, image:'img/HS_Sea+4.jpeg', photographer:'Hiroshi Sugimoto', date:'1998', categoria:'Paesaggio'},
+    {id: 19, symbol:'Pt', name:`Paesaggio notturno`, desc:`Lunghe esposizioni, scarsa luce, stelle, luna o luci artificiali.`, image:'img/c5995cae82e146b108177a9c83591ddf-san-carlos-long-exposure.jpg', photographer:'Michael Kenna', date:'1992', categoria:'Paesaggio'},
+    {id: 20, symbol:'Cs', name:`Paesaggio urbano`, desc:`La città come organismo: skyline, architetture, vie, piazze.`, image:'img/KjiM2rGdIIo2_4800x4800.jpg', photographer:'Andreas Gursky', date:'1993', categoria:'Paesaggio'},
+    {id: 21, symbol:'Pa', name:`Paesaggio aereo`, desc:`Vista dall'alto (aereo, elicottero, drone). Grammatica per pattern e astrazione geometrica.`, image:'img/coeur.jpg', photographer:'Yann Arthus-Bertrand', date:'1992', categoria:'Paesaggio'},
+    {id: 22, symbol:'Pm', name:`Paesaggio minimalista`, desc:`Composizione ridotta a pochi elementi, ampi vuoti, riduzione tonale.`, image:'img/K13774B010017.jpg', photographer:'Josef Hoflehner', date:'2007', categoria:'Paesaggio'},
   ]},
   { cat:'astro', items:[
-    {id:27,symbol:'Af',name:'Astrofotografia',        desc:'Riprende corpi celesti, oggetti del cielo profondo o paesaggi notturni con cielo stellato.',imageDesc:'Nebulosa o galassia con dettaglio ad alta risoluzione',categoria:'Astrofotografia'},
-    {id:28,symbol:'Ds',name:'Cielo profondo',         desc:'Galassie, nebulose, ammassi stellari. Telescopi, montature equatoriali.',imageDesc:'Nebulosa o galassia ad alta risoluzione',categoria:'Astrofotografia'},
-    {id:29,symbol:'So',name:'Sistema solare',         desc:'Sole, Luna, pianeti. Tecnica del lucky imaging (migliaia di frame, selezione dei migliori).',imageDesc:'Pianeta (Giove, Saturno) con dettaglio ad alta risoluzione',categoria:'Astrofotografia'},
-    {id:30,symbol:'Ng',name:'Nightscape',             desc:'Cielo stellato e Via Lattea integrati nel paesaggio terrestre.',imageDesc:'Via Lattea sopra paesaggio naturale o montagna',categoria:'Astrofotografia'},
+    {id: 23, symbol:'Ds', name:`Cielo profondo`, desc:`Galassie, nebulose, ammassi stellari. Telescopi, montature equatoriali.`, image:'img/foto_sottogenere_85.jpeg', photographer:'Adam Block', date:'2019', categoria:'Astrofotografia'},
+    {id: 24, symbol:'So', name:`Sistema solare`, desc:`Sole, Luna, pianeti. Tecnica del lucky imaging (migliaia di frame, selezione dei migliori).`, image:'img/foto_sottogenere_86.jpg', photographer:'Damian Peach', date:'2016', categoria:'Astrofotografia'},
+    {id: 25, symbol:'Ng', name:`Nightscape`, desc:`Cielo stellato e Via Lattea integrati nel paesaggio terrestre.`, image:'img/foto_sottogenere_87.jpg', photographer:'Petr Horálek', date:'2015', categoria:'Astrofotografia'},
   ]},
   { cat:'travel', items:[
-    {id:31,symbol:'Vg',name:'Viaggio',                desc:'Documenta luoghi, persone e culture in chiave esperienziale. Legata a riviste geografiche.',imageDesc:'Luogo, persona o rito culturale in contesto di viaggio',categoria:'Viaggio'},
-    {id:32,symbol:'Rd',name:'Road trip',              desc:'Narra il viaggio su strada attraverso paesaggi, stazioni, motel e scene spontanee.',imageDesc:'Paesaggio stradale o motel lungo una highway',categoria:'Viaggio'},
-    {id:33,symbol:'Td',name:'Travel documentary',     desc:'Racconta luoghi, culture e persone con approccio narrativo e documentaristico.',imageDesc:'Persone o luoghi documentati in contesto di viaggio',categoria:'Viaggio'},
-    {id:34,symbol:'Ts',name:'Travel snapshot',        desc:'Documenta esperienze personali di viaggio con approccio spontaneo.',imageDesc:'Istantanea spontanea durante un viaggio',categoria:'Viaggio'},
-    {id:35,symbol:'Te',name:'Editoriale turistica',   desc:'Realizza immagini per guide, riviste e promozione turistica.',imageDesc:'Luogo turistico fotografato per guida o rivista',categoria:'Viaggio'},
+    {id: 26, symbol:'Rd', name:`Road trip`, desc:`Narra il viaggio su strada attraverso paesaggi, stazioni, motel e scene spontanee.`, image:'img/foto_sottogenere_98.jpg', photographer:'Stephen Shore', date:'1973', categoria:'Viaggio'},
+    {id: 27, symbol:'Td', name:`Travel documentary`, desc:`Racconta luoghi, culture e persone con approccio narrativo e documentaristico.`, image:'img/foto_sottogenere_99.jpg', photographer:'Sebastião Salgado', date:'2016', categoria:'Viaggio'},
+    {id: 28, symbol:'Ts', name:`Travel snapshot`, desc:`Documenta esperienze personali di viaggio con approccio spontaneo.`, image:'img/foto_sottogenere_100.jpg', photographer:'Martin Parr', date:'1997', categoria:'Viaggio'},
+    {id: 29, symbol:'Te', name:`Editoriale turistica`, desc:`Realizza immagini per guide, riviste e promozione turistica.`, image:'img/foto_sottogenere_101.jpg', photographer:'Colin Prior', date:'2021', categoria:'Viaggio'},
   ]},
   { cat:'documentary', items:[
-    {id:36,symbol:'Dc',name:'Documentaristica',       desc:'Racconta fatti, persone e luoghi a fini di testimonianza, informazione o denuncia.',imageDesc:'Immagine documentaria con valenza testimoniale',categoria:'Documentaristica'},
-    {id:37,symbol:'Hi',name:'Storica & archivio',     desc:'Documentazione di eventi e luoghi storici, anche con valore di archivio.',imageDesc:'Immagine storica di archivio con valenza documentale',categoria:'Documentaristica'},
-    {id:38,symbol:'Pj',name:'Fotogiornalismo',        desc:'Copertura di eventi di cronaca per stampa periodica, agenzie, settimanali.',imageDesc:'Immagine iconica di evento di cronaca',categoria:'Documentaristica'},
-    {id:39,symbol:'Wf',name:'Guerra / conflitto',     desc:'Sottofamiglia del fotogiornalismo dedicata a guerre, conflitti armati, post-conflitto.',imageDesc:'Scene di conflitto armato, soldati o civili in guerra',categoria:'Documentaristica'},
-    {id:40,symbol:'Cn',name:'Sociale & umanitaria',   desc:'Documenta condizioni di disuguaglianza, povertà, sfruttamento per finalità di denuncia.',imageDesc:'Persone in condizioni di povertà o marginalità',categoria:'Documentaristica'},
-    {id:41,symbol:'Et',name:'Etnografica',            desc:'Studia popolazioni, culture e modi di vita con rigore quasi tassonomico.',imageDesc:'Comunità indigena nel proprio contesto culturale',categoria:'Documentaristica'},
-    {id:42,symbol:'Lf',name:'Long-form documentary',  desc:'Progetti di lunga durata che evolvono in libro o mostra, con tema unitario.',imageDesc:'Serie narrativa su un tema unitario sviluppata nel tempo',categoria:'Documentaristica'},
+    {id: 30, symbol:'Hi', name:`Storica & archivio`, desc:`Documentazione di eventi e luoghi storici, anche con valore di archivio.`, image:'img/main-image.jpeg', photographer:'Walker Evans', date:'1936', categoria:'Documentaristica'},
+    {id: 31, symbol:'Pj', name:`Fotogiornalismo`, desc:`Copertura di eventi di cronaca per stampa periodica, agenzie, settimanali.`, image:'img/robert-capa-falling-soldier.jpeg', photographer:'Robert Capa', date:'1936', categoria:'Documentaristica'},
+    {id: 32, symbol:'Wf', name:`Guerra / conflitto`, desc:`Sottofamiglia del fotogiornalismo dedicata a guerre, conflitti armati, post-conflitto.`, image:'img/AR01201_10.jpg', photographer:'Don McCullin', date:'1968', categoria:'Documentaristica'},
+    {id: 33, symbol:'Cn', name:`Sociale & umanitaria`, desc:`Documenta condizioni di disuguaglianza, povertà, sfruttamento per finalità di denuncia.`, image:'img/201307F03-KC-MigrantMother-Photo-Portrait-thumbnail-1200x1200.jpg', photographer:'Dorothea Lange', date:'1936', categoria:'Documentaristica'},
+    {id: 34, symbol:'Et', name:`Etnografica`, desc:`Studia popolazioni, culture e modi di vita con rigore quasi tassonomico.`, image:'img/2022_NYR_20647_0049_000(edward_sheriff_curtis_the_vanishing_race_navaho_1904051629).jpg', photographer:'Edward S. Curtis', date:'1904', categoria:'Documentaristica'},
+    {id: 35, symbol:'Lf', name:`Long-form documentary`, desc:`Progetti di lunga durata che evolvono in libro o mostra, con tema unitario.`, image:'img/Country-Doctor_02.jpg', photographer:'W. Eugene Smith', date:'1948', categoria:'Documentaristica'},
   ]},
   { cat:'events', items:[
-    {id:43,symbol:'Mt',name:'Eventi',                 desc:'Documenta cerimonie e celebrazioni private e pubbliche. Reportage di matrimonio, spettacoli, concerti.',imageDesc:'Cerimonia o evento pubblico con pubblico',categoria:'Eventi'},
-    {id:44,symbol:'Wp',name:'Matrimonio reportage',   desc:'Approccio narrativo non posato che documenta la giornata come reportage.',imageDesc:'Momento spontaneo durante una cerimonia di matrimonio',categoria:'Eventi'},
-    {id:45,symbol:'Wd',name:'Matrimonio editoriale',  desc:'Ispirazione fashion, set e luce curati, post-produzione raffinata.',imageDesc:'Sposi in posa curata con luce cinematografica',categoria:'Eventi'},
-    {id:46,symbol:'Sp',name:'Spettacoli',             desc:'Riprende performance teatrali, circensi e sceniche cogliendo movimento ed espressione.',imageDesc:'Performance teatrale con luce scenica',categoria:'Eventi'},
-    {id:47,symbol:'Ct',name:'Concerti',               desc:'Documenta performance musicali dal vivo cogliendo energia scenica e movimento.',imageDesc:'Concerto live con luci e movimento',categoria:'Eventi'},
-    {id:48,symbol:'Ev',name:'Corporate & pubblici',   desc:'Conferenze, premiazioni, concerti, eventi politici. Affine al fotogiornalismo.',imageDesc:'Evento corporate o premiazione con pubblico',categoria:'Eventi'},
+    {id: 36, symbol:'Wp', name:`Matrimonio reportage`, desc:`Approccio narrativo non posato che documenta la giornata come reportage.`, image:'img/foto_sottogenere_88.jpg', photographer:'Jeff Ascough', date:'2014', categoria:'Eventi'},
+    {id: 37, symbol:'Wd', name:`Matrimonio editoriale`, desc:`Ispirazione fashion, set e luce curati, post-produzione raffinata.`, image:'img/foto_sottogenere_89.jpg', photographer:'Elizabeth Messina', date:'2016', categoria:'Eventi'},
+    {id: 38, symbol:'Sp', name:`Spettacoli`, desc:`Riprende performance teatrali, circensi e sceniche cogliendo movimento ed espressione.`, image:'img/foto_sottogenere_90.jpg', photographer:'Annie Leibovitz', date:'2024', categoria:'Eventi'},
+    {id: 39, symbol:'Ct', name:`Concerti`, desc:`Documenta performance musicali dal vivo cogliendo energia scenica e movimento.`, image:'img/foto_sottogenere_91.jpg', photographer:'Jim Marshall', date:'1967', categoria:'Eventi'},
+    {id: 40, symbol:'Ev', name:`Corporate & pubblici`, desc:`Conferenze, premiazioni, concerti, eventi politici. Affine al fotogiornalismo.`, image:'img/foto_sottogenere_92.jpg', photographer:'Jill Furmanovsky', date:'1972', categoria:'Eventi'},
   ]},
   { cat:'action', items:[
-    {id:49,symbol:'Az',name:'Azione',                 desc:'Richiede tempi rapidi, ottiche lunghe, anticipazione del momento.',imageDesc:'Atleta in azione nel momento culminante',categoria:'Azione'},
-    {id:50,symbol:'Ac',name:'Action sportiva',        desc:'Coglie il gesto agonistico nel suo apice. Tempi rapidi, ottiche lunghe.',imageDesc:'Atleta in azione nel momento culminante della competizione',categoria:'Azione'},
-    {id:51,symbol:'Rz',name:'Fotografia di danza',    desc:'Blocca o enfatizza il movimento coreografico, lavorando su ritmo, luce e postura.',imageDesc:'Danzatore in movimento con luce teatrale',categoria:'Azione'},
-    {id:52,symbol:'Ms',name:'Motorsport',             desc:'Gare automobilistiche e motociclistiche. Panning, motion blur controllato.',imageDesc:'Vettura da corsa in panning',categoria:'Azione'},
-    {id:53,symbol:'Es',name:'Sport estremi',          desc:'Arrampicata, surf, base jumping. Spesso il fotografo è anche praticante.',imageDesc:'Atleta in sport estremo (arrampicata, surf, alpinismo)',categoria:'Azione'},
+    {id: 41, symbol:'Ac', name:`Action sportiva`, desc:`Coglie il gesto agonistico nel suo apice. Tempi rapidi, ottiche lunghe.`, image:'img/foto_sottogenere_81.jpg', photographer:'Neil Leifer', date:'1965', categoria:'Azione'},
+    {id: 42, symbol:'Rz', name:`Fotografia di danza`, desc:`Blocca o enfatizza il movimento coreografico, lavorando su ritmo, luce e postura.`, image:'img/foto_sottogenere_82.jpg', photographer:'Lois Greenfield', date:'1992', categoria:'Azione'},
+    {id: 43, symbol:'Ms', name:`Motorsport`, desc:`Gare automobilistiche e motociclistiche. Panning, motion blur controllato.`, image:'img/foto_sottogenere_83.jpg', photographer:'Jesse Alexander', date:'1958', categoria:'Azione'},
+    {id: 44, symbol:'Es', name:`Sport estremi`, desc:`Arrampicata, surf, base jumping. Spesso il fotografo è anche praticante.`, image:'img/foto_sottogenere_84.jpg', photographer:'Jimmy Chin', date:'2017', categoria:'Azione'},
   ]},
   { cat:'street', items:[
-    {id:54,symbol:'Ub',name:'Urbana',                 desc:'Documenta la vita quotidiana negli spazi pubblici. Spontaneità, «momento decisivo» (Cartier-Bresson).',imageDesc:'Scena urbana colta nel momento decisivo',categoria:'Fotografia Urbana'},
-    {id:55,symbol:'Sx',name:'Urbana americana',       desc:"Più cruda, energica, frammentaria. Sguardo errante sull'American Way of Life.",imageDesc:'Strada americana con atmosfera grezza e spontanea',categoria:'Fotografia Urbana'},
-    {id:56,symbol:'Cl',name:'Urbana a colori',        desc:"Riabilitazione del colore nel linguaggio fotografico autoriale a partire da fine anni '50.",imageDesc:'Scene di strada con uso espressivo del colore',categoria:'Fotografia Urbana'},
-    {id:57,symbol:'Mc',name:'Urbana classica',        desc:'Codificata dalla scuola francese e dalla Magnum: composizione rigorosa, geometria.',imageDesc:'Scena urbana classica in bianco e nero',categoria:'Fotografia Urbana'},
-    {id:58,symbol:'Sf',name:'Urbana & Flash',         desc:'Approccio invadente, ravvicinato, spesso con flash diretto. Frontalità che «viola» il soggetto.',imageDesc:'Ritratto ravvicinato con flash diretto in strada',categoria:'Fotografia Urbana'},
-    {id:59,symbol:'Pv',name:'Urbana giapponese',      desc:"Linguaggio sgranato, sfocato, sovraesposto: estetica are, bure, boke della rivista Provoke (1968-69).",imageDesc:'Scene urbane sgranate, sfocate, ad alto contrasto',categoria:'Fotografia Urbana'},
+    {id: 45, symbol:'Sx', name:`Urbana americana`, desc:`Più cruda, energica, frammentaria. Sguardo errante sull'American Way of Life.`, image:'img/W1siZiIsIjQ1ODM3NSJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MTQ0MFx1MDAzZSJdXQ.jpg', photographer:'Robert Frank', date:'1955', categoria:'Fotografia Urbana'},
+    {id: 46, symbol:'Cl', name:`Urbana a colori`, desc:`Riabilitazione del colore nel linguaggio fotografico autoriale a partire da fine anni '50.`, image:'img/saul-leiter-postmen.jpg', photographer:'Saul Leiter', date:'1952', categoria:'Fotografia Urbana'},
+    {id: 47, symbol:'Mc', name:`Urbana classica`, desc:`Codificata dalla scuola francese e dalla Magnum: composizione rigorosa, geometria.`, image:'img/W1siZiIsIjE0NDM3NiJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MjAwMFx1MDAzZSJdXQ.jpg', photographer:'Henri Cartier-Bresson', date:'1932', categoria:'Fotografia Urbana'},
+    {id: 48, symbol:'Sf', name:`Urbana & Flash`, desc:`Approccio invadente, ravvicinato, spesso con flash diretto. Frontalità che «viola» il soggetto.`, image:'img/gilden10.jpg', photographer:'Bruce Gilden', date:'1992', categoria:'Fotografia Urbana'},
+    {id: 49, symbol:'Pv', name:`Urbana giapponese`, desc:`Linguaggio sgranato, sfocato, sovraesposto: estetica are, bure, boke della rivista Provoke (1968-69).`, image:'img/92093.jpg', photographer:'Daido Moriyama', date:'1971', categoria:'Fotografia Urbana'},
   ]},
   { cat:'portrait', items:[
-    {id:60,symbol:'Rt',name:'Ritratto',               desc:"Rappresentazione di una o più persone con l'obiettivo di restituirne aspetto, identità, personalità.",imageDesc:"Ritratto di persona con attenzione all'identità",categoria:'Ritratto'},
-    {id:61,symbol:'Hc',name:'Headshot & Corporate',   desc:'Ritratto formale, busto o mezzo busto, su fondo neutro, destinato a uso professionale.',imageDesc:'Primo piano o busto su sfondo neutro stile professionale',categoria:'Ritratto'},
-    {id:62,symbol:'Rg',name:'Ritratto di gruppo',     desc:'Più persone legate da relazioni familiari, professionali o sociali.',imageDesc:'Gruppo di persone in posa o in modo naturale',categoria:'Ritratto'},
-    {id:63,symbol:'Ra',name:'Ritratto ambientale',    desc:'Il soggetto è ritratto nel proprio contesto di vita o lavoro.',imageDesc:'Soggetto nel proprio ambiente di lavoro o vita quotidiana',categoria:'Ritratto'},
-    {id:64,symbol:'Rs',name:'Ritratto in studio',     desc:'Realizzato in ambiente controllato, con luce artificiale o naturale modellata.',imageDesc:'Soggetto isolato su fondo neutro, illuminazione studiata',categoria:'Ritratto'},
-    {id:65,symbol:'Au',name:'Autoritratto',           desc:'Il fotografo è insieme soggetto e oggetto. Strumento di indagine identitaria.',imageDesc:'Il fotografo ritratto da sé stesso',categoria:'Ritratto'},
-    {id:66,symbol:'Rc',name:'Ritratto spontaneo',     desc:'Non posato, spesso colto a soggetto inconsapevole. Si avvicina alla street.',imageDesc:'Soggetto colto in modo spontaneo, senza posa',categoria:'Ritratto'},
-    {id:67,symbol:'Bg',name:'Boudoir & Glamour',      desc:'Ritrattistica intima e sensuale, spesso in ambienti privati o suggestivi.',imageDesc:'Ritratto intimo o patinato, luce morbida e cura estetica',categoria:'Ritratto'},
-    {id:68,symbol:'Rp',name:'Ritratto psicologico',   desc:'Punta alla restituzione profonda della soggettività, resa formalmente scarna ma intensa.',imageDesc:'Ritratto intenso e psicologicamente denso',categoria:'Ritratto'},
+    {id: 50, symbol:'Hc', name:`Headshot & Corporate`, desc:`Ritratto formale, busto o mezzo busto, su fondo neutro, destinato a uso professionale.`, image:'img/Joan_Crawford_-_1936_-_Hurrell.JPG', photographer:'George Hurrell', date:'1936', categoria:'Ritratto'},
+    {id: 51, symbol:'Rg', name:`Ritratto di gruppo`, desc:`Più persone legate da relazioni familiari, professionali o sociali.`, image:'img/03-sept-19912.jpg', photographer:'Peter Lindbergh', date:'1991', categoria:'Ritratto'},
+    {id: 52, symbol:'Ra', name:`Ritratto ambientale`, desc:`Il soggetto è ritratto nel proprio contesto di vita o lavoro.`, image:'img/W1siZiIsIjE5MDQ4MCJdLFsicCIsImNvbnZlcnQiLCItcXV.jpg', photographer:'Arnold Newman', date:'1946', categoria:'Ritratto'},
+    {id: 53, symbol:'Rs', name:`Ritratto in studio`, desc:`Realizzato in ambiente controllato, con luce artificiale o naturale modellata.`, image:'img/Yousuf-Karsh-Winston-Churchill-Smile.jpg', photographer:'Yousuf Karsh', date:'1941', categoria:'Ritratto'},
+    {id: 54, symbol:'Au', name:`Autoritratto`, desc:`Il fotografo è insieme soggetto e oggetto. Strumento di indagine identitaria.`, image:'img/W1siZiIsIjQ1MDExOSJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MjAwMFx1MDAzZSJdXQ.jpg', photographer:'Cindy Sherman', date:'1978', categoria:'Ritratto'},
+    {id: 55, symbol:'Rc', name:`Ritratto spontaneo`, desc:`Non posato, spesso colto a soggetto inconsapevole. Si avvicina alla street.`, image:'img/Una-delle-celebre-Marilyn-di-Elliott-Erwitt.jpg', photographer:'Elliott Erwitt', date:'1956', categoria:'Ritratto'},
+    {id: 56, symbol:'Bg', name:`Boudoir & Glamour`, desc:`Ritrattistica intima e sensuale, spesso in ambienti privati o suggestivi.`, image:'img/2013-11-07-ellevvonunwerth_smokinginbed1994.jpg', photographer:'Ellen von Unwerth', date:'1994', categoria:'Ritratto'},
+    {id: 57, symbol:'Rp', name:`Ritratto psicologico`, desc:`Punta alla restituzione profonda della soggettività, resa formalmente scarna ma intensa.`, image:'img/W1siZiIsIjE4NDI3OSJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MjAwMFx1MDAzZSJdXQ.jpg', photographer:'Richard Avedon', date:'1957', categoria:'Ritratto'},
   ]},
   { cat:'nude', items:[
-    {id:69,symbol:'Nu',name:'Nudo',                   desc:'Il corpo nudo come soggetto, con finalità artistica, formale, sensuale o politica.',imageDesc:'Corpo nudo fotografato con intenzione artistica',categoria:'Nudo'},
-    {id:70,symbol:'Na',name:'Nudo artistico',         desc:'Approccio plastico-formale, scultoreo. Corpo come paesaggio o forma astratta.',imageDesc:'Corpo nudo fotografato come forma scultorea',categoria:'Nudo'},
-    {id:71,symbol:'Ne',name:'Nudo erotico / Glamour', desc:'Componente sensuale o esplicita prevalente, spesso al confine con la moda.',imageDesc:'Nudo con connotazione sensuale e cura estetica',categoria:'Nudo'},
-    {id:72,symbol:'Bz',name:'Boudoir (Nudo)',         desc:'Nudo intimo in interni, con soggetti privati. Si lega al boudoir ritrattistico.',imageDesc:'Nudo in ambiente intimo domestico con luce morbida',categoria:'Nudo'},
-    {id:73,symbol:'Nm',name:'Nudo di massa',          desc:'Corpi nudi come soggetto collettivo, con valenza estetica, politica o di occupazione dello spazio.',imageDesc:'Folla di persone nude in spazio pubblico (installazione)',categoria:'Nudo'},
-    {id:74,symbol:'Mv',name:'Nudo & Movimento',       desc:"Origini ottocentesche dello studio del corpo in azione. Antesignana del cinema.",imageDesc:'Sequenza cronofotografica di corpo in movimento',categoria:'Nudo'},
+    {id: 58, symbol:'Na', name:`Nudo artistico`, desc:`Approccio plastico-formale, scultoreo. Corpo come paesaggio o forma astratta.`, image:'img/foto_sottogenere_76.png', photographer:'Bill Brandt', date:'1955', categoria:'Nudo'},
+    {id: 59, symbol:'Ne', name:`Nudo erotico / Glamour`, desc:`Componente sensuale o esplicita prevalente, spesso al confine con la moda.`, image:'img/foto_sottogenere_77.jpg', photographer:'Ellen von Unwerth', date:'1992', categoria:'Nudo'},
+    {id: 60, symbol:'Bz', name:`Boudoir (Nudo)`, desc:`Nudo intimo in interni, con soggetti privati. Si lega al boudoir ritrattistico.`, image:'img/foto_sottogenere_78.jpeg', photographer:'Albert Arthur Allen', date:'1915', categoria:'Nudo'},
+    {id: 61, symbol:'Nm', name:`Nudo di massa`, desc:`Corpi nudi come soggetto collettivo, con valenza estetica, politica o di occupazione dello spazio.`, image:'img/foto_sottogenere_79.jpg', photographer:'Spencer Tunick', date:'2003', categoria:'Nudo'},
+    {id: 62, symbol:'Mv', name:`Nudo & Movimento`, desc:`Origini ottocentesche dello studio del corpo in azione. Antesignana del cinema.`, image:'img/foto_sottogenere_80.jpg', photographer:'Eadweard Muybridge', date:'1887', categoria:'Nudo'},
   ]},
   { cat:'fashion', items:[
-    {id:75,symbol:'Md',name:'Moda',                   desc:'Promuove o interpreta abbigliamento, accessori, beauty per case di moda, riviste, brand.',imageDesc:'Servizio moda con modella in set curato',categoria:'Moda'},
-    {id:76,symbol:'Ck',name:'Catalogo & Lookbook',    desc:'Funzione commerciale: presentazione chiara del prodotto. Set neutri, luce piana.',imageDesc:'Modella in abito su fondo neutro con luce piana',categoria:'Moda'},
-    {id:77,symbol:'By',name:'Beauty',                 desc:'Volti, pelle, trucco, capelli in primissimo piano. Forte cura della luce.',imageDesc:'Primo piano di volto con attenzione a trucco e pelle',categoria:'Moda'},
-    {id:78,symbol:'Hu',name:'Alta moda (Couture)',    desc:'Iconografia delle collezioni couture: forte cura del set, abito come scultura.',imageDesc:'Modella in abito couture su set curato e pose statuarie',categoria:'Moda'},
-    {id:79,symbol:'Fe',name:'Editoriale di moda',     desc:"Servizi narrativi pubblicati su riviste (Vogue, Harper's Bazaar). Ampio margine creativo.",imageDesc:'Servizio moda narrativo e tematizzato su rivista',categoria:'Moda'},
-    {id:80,symbol:'Sh',name:'Street fashion',         desc:'Documenta la moda «in the wild»: stile reale, sfilate viste fuori dalle passerelle.',imageDesc:'Persone stilose fotografate in strada fuori dalle sfilate',categoria:'Moda'},
-    {id:81,symbol:'Vt',name:'Avant-garde fashion',    desc:'Sperimentazione visiva spinta, contaminazione con surrealismo, performance.',imageDesc:'Set sperimentale con elementi surreali o visivamente estremi',categoria:'Moda'},
+    {id: 63, symbol:'Ck', name:`Catalogo & Lookbook`, desc:`Funzione commerciale: presentazione chiara del prodotto. Set neutri, luce piana.`, image:'img/Prada FW11_Adv Camp 01.jpg', photographer:'Steven Meisel', date:'2004', categoria:'Moda'},
+    {id: 64, symbol:'By', name:`Beauty`, desc:`Volti, pelle, trucco, capelli in primissimo piano. Forte cura della luce.`, image:'img/guinevere-paris-199-1550137873.jpg', photographer:'Paolo Roversi', date:'1996', categoria:'Moda'},
+    {id: 65, symbol:'Hu', name:`Alta moda (Couture)`, desc:`Iconografia delle collezioni couture: forte cura del set, abito come scultura.`, image:'img/source.jpeg', photographer:'Irving Penn', date:'1950', categoria:'Moda'},
+    {id: 66, symbol:'Fe', name:`Editoriale di moda`, desc:`Servizi narrativi pubblicati su riviste (Vogue, Harper's Bazaar). Ampio margine creativo.`, image:'img/15885.jpg', photographer:'Richard Avedon', date:'1955', categoria:'Moda'},
+    {id: 67, symbol:'Sh', name:`Street fashion`, desc:`Documenta la moda «in the wild»: stile reale, sfilate viste fuori dalle passerelle.`, image:'img/0316billc-superJumbo-v2.jpg', photographer:'Bill Cunningham', date:'(1978-2016)', categoria:'Moda'},
+    {id: 68, symbol:'Vt', name:`Avant-garde fashion`, desc:`Sperimentazione visiva spinta, contaminazione con surrealismo, performance.`, image:'img/d7hftxdivxxvm.cloudfront.net 2.jpeg', photographer:'Nick Knight', date:'2015', categoria:'Moda'},
   ]},
   { cat:'stilllife', items:[
-    {id:82,symbol:'Sl',name:'Still Life',             desc:'Eredita la natura morta pittorica: oggetti inanimati composti e illuminati con cura.',imageDesc:'Composizione di oggetti con luce studiata',categoria:'Still Life'},
-    {id:83,symbol:'Pd',name:'Product',                desc:'Prodotti commerciali (orologi, bottiglie, cosmetici, automotive). Tecnica avanzata di luce.',imageDesc:'Prodotto commerciale isolato con luce tecnica precisa',categoria:'Still Life'},
-    {id:84,symbol:'Fd',name:'Food',                   desc:'Cibo come oggetto. Si articola tra editoriale (riviste, libri di cucina) e pubblicitario.',imageDesc:'Cibo composto e illuminato con cura',categoria:'Still Life'},
-    {id:85,symbol:'Sa',name:'Still life d\'autore',   desc:'Oggetti come pretesto per ricerca formale, simbolica o materica.',imageDesc:"Composizione di oggetti con valenza estetica d'autore",categoria:'Still Life'},
-    {id:86,symbol:'Vn',name:'Tabletop & Vanitas',     desc:'Composizioni su piano. Vanitas riprende la tradizione barocca con simboli della caducità.',imageDesc:'Composizione con teschio, fiori appassiti o frutta marcia',categoria:'Still Life'},
+    {id: 69, symbol:'Pd', name:`Product`, desc:`Prodotti commerciali (orologi, bottiglie, cosmetici, automotive). Tecnica avanzata di luce.`, image:'img/EXjWAqjZXeEV6GMQ6nvNdC.jpg', photographer:'Hans Hansen', date:'1968', categoria:'Still Life'},
+    {id: 70, symbol:'Fd', name:`Food`, desc:`Cibo come oggetto. Si articola tra editoriale (riviste, libri di cucina) e pubblicitario.`, image:'img/default.jpg', photographer:'Irving Penn', date:'1977', categoria:'Still Life'},
+    {id: 71, symbol:'Sa', name:`Still life d'autore`, desc:`Oggetti come pretesto per ricerca formale, simbolica o materica.`, image:'img/90828.jpg', photographer:'Edward Weston', date:'1930', categoria:'Still Life'},
+    {id: 72, symbol:'Vn', name:`Tabletop & Vanitas`, desc:`Composizioni su piano. Vanitas riprende la tradizione barocca con simboli della caducità.`, image:'img/d7hftxdivxxvm.cloudfront.net 4.jpeg', photographer:'Joel-Peter Witkin', date:'1992', categoria:'Still Life'},
   ]},
   { cat:'abstract', items:[
-    {id:87,symbol:'Ab',name:'Astratta',               desc:'Privilegia forma, linea, colore, texture, pattern rispetto al riconoscimento del soggetto reale.',imageDesc:'Composizione astratta basata su pattern o texture',categoria:'Astratta'},
-    {id:88,symbol:'Ag',name:'Astratta geometrica',    desc:'Astrazione che parte dal reale (muri, vegetazione, superfici) per estrarne pattern.',imageDesc:'Superficie o dettaglio che diventa pattern astratto',categoria:'Astratta'},
-    {id:89,symbol:'Cw',name:'Cameraless / Sperimentale',desc:'Immagini senza macchina fotografica: fotogrammi, chemigrammi, luminogrammi.',imageDesc:'Fotogramma o impronta di oggetti su carta fotosensibile',categoria:'Astratta'},
-    {id:90,symbol:'Eq',name:'Equivalent / Pittoricista',desc:'Immagini riconoscibili (nuvole, acqua) usate come metafora emotiva astratta.',imageDesc:'Nuvole o acqua fotografate come metafore emotive',categoria:'Astratta'},
+    {id: 73, symbol:'Ag', name:`Astratta geometrica`, desc:`Astrazione che parte dal reale (muri, vegetazione, superfici) per estrarne pattern.`, image:'img/W1siZiIsIjE4MjEwNSJdLFsicCIsImNvbnZlcnQiLCItcXVhbGl0eSA5MCAtcmVzaXplIDIwMDB4MTQ0MFx1MDAzZSJdXQ.jpg', photographer:'Aaron Siskind', date:'1949', categoria:'Astratta'},
+    {id: 74, symbol:'Cw', name:`Cameraless / Sperimentale`, desc:`Immagini senza macchina fotografica: fotogrammi, chemigrammi, luminogrammi.`, image:'img/W1siZiIsIjE5NjAiXSxbInAiLCJjb252ZXJ0IiwiLXF1YWxpdHkgOTAgLXJlc2l6ZSAyMDAweDIwMDBcdTAwM2UiXV0.jpg', photographer:'Man Ray', date:'1922', categoria:'Astratta'},
+    {id: 75, symbol:'Eq', name:`Equivalent / Pittoricista`, desc:`Immagini riconoscibili (nuvole, acqua) usate come metafora emotiva astratta.`, image:'img/Equivalent_MET_DT2980.jpg', photographer:'Alfred Stieglitz', date:'1926', categoria:'Astratta'},
   ]},
   { cat:'fineart', items:[
-    {id:91,symbol:'Fa',name:'Fine Art & Concettuale',  desc:"Fotografia pensata anzitutto come opera d'arte autonoma, destinata a galleria, museo o collezione.",imageDesc:'Opera fotografica concettuale o staged per galleria',categoria:'Fine Art & Concettuale'},
-    {id:92,symbol:'Tb',name:'Staged / Tableaux vivants',desc:'Scene costruite e dirette dal fotografo, con attori, set, illuminazione cinematografica.',imageDesc:'Scena costruita e diretta come un tableau cinematografico',categoria:'Fine Art & Concettuale'},
-    {id:93,symbol:'Co',name:'Concettuale (puro)',      desc:"L'idea conta più dell'oggetto. La foto è documento di un'operazione concettuale o seriale.",imageDesc:"Serie sistematica che documenta un'operazione concettuale",categoria:'Fine Art & Concettuale'},
-    {id:94,symbol:'Sr',name:'Surrealista',             desc:'Erede del surrealismo storico: gioco con sogno, inconscio, doppio, manipolazione visiva.',imageDesc:'Composizione onirica con elementi incongrui e atmosfera surreale',categoria:'Fine Art & Concettuale'},
-    {id:95,symbol:'Di',name:'Diaristica intima',       desc:'Documento autobiografico delle vite del fotografo e del proprio cerchio.',imageDesc:'Istantanea intima di vita quotidiana del fotografo',categoria:'Fine Art & Concettuale'},
-    {id:96,symbol:'Ap',name:'Appropriazione & Post-foto',desc:'Riuso e citazione di immagini esistenti; dissoluzione del concetto di autorialità.',imageDesc:"Fotografia rifotografata o appropriata da un'altra immagine",categoria:'Fine Art & Concettuale'},
+    {id: 76, symbol:'Tb', name:`Staged / Tableaux vivants`, desc:`Scene costruite e dirette dal fotografo, con attori, set, illuminazione cinematografica.`, image:'img/foto_sottogenere_71.jpg', photographer:'Jeff Wall', date:'2023', categoria:'Fine Art & Concettuale'},
+    {id: 77, symbol:'Co', name:`Concettuale (puro)`, desc:`L'idea conta più dell'oggetto. La foto è documento di un'operazione concettuale o seriale.`, image:'img/foto_sottogenere_72.jpg', photographer:'Sophie Calle', date:'2013', categoria:'Fine Art & Concettuale'},
+    {id: 78, symbol:'Sr', name:`Surrealista`, desc:`Erede del surrealismo storico: gioco con sogno, inconscio, doppio, manipolazione visiva.`, image:'img/foto_sottogenere_73.jpeg', photographer:'Man Ray', date:'1932', categoria:'Fine Art & Concettuale'},
+    {id: 79, symbol:'Di', name:`Diaristica intima`, desc:`Documento autobiografico delle vite del fotografo e del proprio cerchio.`, image:'img/foto_sottogenere_74.jpg', photographer:'Nan Goldin', date:'1984', categoria:'Fine Art & Concettuale'},
+    {id: 80, symbol:'Ap', name:`Appropriazione & Post-foto`, desc:`Riuso e citazione di immagini esistenti; dissoluzione del concetto di autorialità.`, image:'img/foto_sottogenere_75.jpg', photographer:'Joan Fontcuberta', date:'1997', categoria:'Fine Art & Concettuale'},
   ]},
 ];
 
 const TECNICHE_DATA = [
-  {id:101,symbol:'Lp',name:'Light Painting',        desc:'Pittura con la luce: in lunga esposizione si «disegna» nello spazio con sorgenti luminose mobili.',imageDesc:'Disegni luminosi tracciati nel buio con lunga esposizione',categoria:'Tecniche & Processi'},
-  {id:102,symbol:'Mb',name:'ICM / Motion Blur',     desc:"Intentional Camera Movement: si muove la fotocamera durante l'esposizione per generare scie e astrazioni.",imageDesc:'Scie e sfocature astratte generate dal movimento della fotocamera',categoria:'Tecniche & Processi'},
-  {id:103,symbol:'Dz',name:'Doppia esposizione',    desc:'Sovrapposizione di due o più immagini sullo stesso fotogramma (in ripresa) o in postproduzione.',imageDesc:'Doppia esposizione con sovrapposizione di ritratto e paesaggio',categoria:'Tecniche & Processi'},
-  {id:104,symbol:'Hz',name:'High Speed Photography',desc:'Tempi brevissimi (1/8000 s e oltre) o flash stroboscopici per «congelare» fenomeni.',imageDesc:"Goccia d'acqua congelata in mid-air con flash stroboscopico",categoria:'Tecniche & Processi'},
-  {id:105,symbol:'If',name:'Infrarosso (IR)',        desc:'Sensibilità a lunghezze d\'onda oltre il rosso visibile. Vegetazione bianca, cieli neri.',imageDesc:'Paesaggio in infrarosso con vegetazione bianca e cielo scuro',categoria:'Tecniche & Processi'},
-  {id:106,symbol:'Uf',name:'UV & Fluorescenza',     desc:'Fotografia in luce ultravioletta (riflessa o di fluorescenza indotta). Usi scientifici e artistici.',imageDesc:'Fluorescenza di fiori o minerali in luce UV',categoria:'Tecniche & Processi'},
-  {id:107,symbol:'Ph',name:'Pinhole (Stenopeico)',  desc:"Macchina senza obiettivo: un foro sottile proietta l'immagine sul piano sensibile.",imageDesc:'Immagine morbida e sognante ottenuta con camera stenopeica',categoria:'Tecniche & Processi'},
-  {id:108,symbol:'Vr',name:'VR / 360°',             desc:'Cattura sferica del campo visivo. Restituzione su visore VR o web immersivo.',imageDesc:'Immagine sferica 360° di un paesaggio o interno',categoria:'Tecniche & Processi'},
-  {id:109,symbol:'Aj',name:'AI & Generativa',       desc:'Immagini sintetiche prodotte da modelli generativi o ibridizzazione di fotografie reali con AI.',imageDesc:'Immagine ibrida fotografia-AI con estetica surreale',categoria:'Tecniche & Processi'},
-  {id:110,symbol:'Dg',name:'Dagherrotipo',           desc:'Primo processo fotografico commerciale (1839): lastra di rame argentata.',imageDesc:'Ritratto su lastra di rame con aspetto argenteo e lucido',categoria:'Tecniche & Processi'},
-  {id:111,symbol:'Wc',name:'Wet Plate Collodion',   desc:'Lastra di vetro rivestita di collodio iodurato, esposta e sviluppata ancora umida (1851).',imageDesc:'Ritratto su lastra di vetro o metallo con tonalità vintage',categoria:'Tecniche & Processi'},
-  {id:112,symbol:'Cy',name:'Cianotipia',            desc:'Stampa a contatto con sali ferrici. Tonalità caratteristica blu di Prussia.',imageDesc:'Stampa cianotipia con toni blu su carta',categoria:'Tecniche & Processi'},
-  {id:113,symbol:'Pl',name:'Platino/Palladio',      desc:'Stampa a contatto con sali di platino (e/o palladio). Eccezionale gamma tonale.',imageDesc:'Stampa platinotipia con gamma tonale profonda',categoria:'Tecniche & Processi'},
-  {id:114,symbol:'Gb',name:'Gomma bicromatata',     desc:'Emulsione di gomma arabica, bicromato e pigmento spalmata su carta. Standard del pittorialismo.',imageDesc:'Stampa gomma bicromatata con effetto pittorico',categoria:'Tecniche & Processi'},
-  {id:115,symbol:'Cm',name:'Cameraless / Fotogramma',desc:'Formazione dell\'immagine senza ottica: fotogrammi, rayogrammi, chemigrammi.',imageDesc:'Fotogramma: silhouette di oggetti su carta fotosensibile',categoria:'Tecniche & Processi'},
+    {id:81, symbol:'Lp', name:`Light Painting`, desc:`Pittura con la luce: in lunga esposizione si «disegna» nello spazio con sorgenti luminose mobili.`, image:'img/foto_tecnica_103.jpg', photographer:'Eric Staller', date:'2004', categoria:'Tecniche & Processi'},
+    {id:82, symbol:'Mb', name:`ICM / Motion Blur`, desc:`Intentional Camera Movement: si muove la fotocamera durante l'esposizione per generare scie e astrazioni.`, image:'img/foto_tecnica_105.jpg', photographer:'Ernst Haas', date:'1980', categoria:'Tecniche & Processi'},
+    {id:83, symbol:'Dz', name:`Doppia esposizione`, desc:`Sovrapposizione di due o più immagini sullo stesso fotogramma (in ripresa) o in postproduzione.`, image:'img/foto_tecnica_106.jpg', photographer:'Jerry Uelsmann', date:'1969', categoria:'Tecniche & Processi'},
+    {id:84, symbol:'Hz', name:`High Speed Photography`, desc:`Tempi brevissimi (1/8000 s e oltre) o flash stroboscopici per «congelare» fenomeni.`, image:'img/foto_tecnica_107.jpg', photographer:'Harold Edgerton', date:'1964', categoria:'Tecniche & Processi'},
+    {id:85, symbol:'If', name:`Infrarosso (IR)`, desc:`Sensibilità a lunghezze d'onda oltre il rosso visibile. Vegetazione bianca, cieli neri.`, image:'img/foto_tecnica_108.jpg', photographer:'Richard Mosse', date:'2012', categoria:'Tecniche & Processi'},
+    {id:86, symbol:'Uf', name:`UV & Fluorescenza`, desc:`Fotografia in luce ultravioletta (riflessa o di fluorescenza indotta). Usi scientifici e artistici.`, image:'img/foto_tecnica_109.jpg', photographer:'Bjørn Rørslett', date:'2000', categoria:'Tecniche & Processi'},
+    {id:87, symbol:'Ph', name:`Pinhole (Stenopeico)`, desc:`Macchina senza obiettivo: un foro sottile proietta l'immagine sul piano sensibile.`, image:'img/foto_tecnica_110.jpg', photographer:'Abelardo Morell', date:'1996', categoria:'Tecniche & Processi'},
+    {id:88, symbol:'Vr', name:`VR / 360°`, desc:`Cattura sferica del campo visivo. Restituzione su visore VR o web immersivo.`, image:'img/foto_tecnica_111.jpg', photographer:'Anonimo', date:'2017', categoria:'Tecniche & Processi'},
+    {id:89, symbol:'Aj', name:`AI & Generativa`, desc:`Immagini sintetiche prodotte da modelli generativi o ibridizzazione di fotografie reali con AI.`, image:'img/foto_tecnica_112.jpg', photographer:'Boris Eldagsen', date:'2022', categoria:'Tecniche & Processi'},
+    {id:90, symbol:'Dg', name:`Dagherrotipo`, desc:`Primo processo fotografico commerciale (1839): lastra di rame argentata.`, image:'img/foto_tecnica_113.jpg', photographer:'Louis Daguerre', date:'1838', categoria:'Tecniche & Processi'},
+    {id:91, symbol:'Wc', name:`Wet Plate Collodion`, desc:`Lastra di vetro rivestita di collodio iodurato, esposta e sviluppata ancora umida (1851).`, image:'img/foto_tecnica_114.jpg', photographer:'Frederick Scott Archer', date:'1855', categoria:'Tecniche & Processi'},
+    {id:92, symbol:'Cy', name:`Cianotipia`, desc:`Stampa a contatto con sali ferrici. Tonalità caratteristica blu di Prussia.`, image:'img/foto_tecnica_115.jpg', photographer:'Anna Atkins', date:'1861', categoria:'Tecniche & Processi'},
+    {id:93, symbol:'Pl', name:`Platino/Palladio`, desc:`Stampa a contatto con sali di platino (e/o palladio). Eccezionale gamma tonale.`, image:'img/foto_tecnica_116.jpg', photographer:'Peter Henry Emerson', date:'1885', categoria:'Tecniche & Processi'},
+    {id:94, symbol:'Gb', name:`Gomma bicromatata`, desc:`Emulsione di gomma arabica, bicromato e pigmento spalmata su carta. Standard del pittorialismo.`, image:'img/foto_tecnica_117.jpg', photographer:'Robert Demachy', date:'fine XIX Secolo', categoria:'Tecniche & Processi'},
+    {id:95, symbol:'Cm', name:`Cameraless / Fotogramma`, desc:`Formazione dell'immagine senza ottica: fotogrammi, rayogrammi, chemigrammi.`, image:'img/foto_tecnica_118.jpg', photographer:'László Moholy-Nagy', date:'1926', categoria:'Tecniche & Processi'},
 ];
 
 // ═══════════════════════════════════════════════════════════════
 // LAYOUT CONSTANTS
 // ═══════════════════════════════════════════════════════════════
 const MAX_ROWS          = 6;
-const TECNICHE_MAX_COLS = 12;   // tecniche block: max 12 cols, then wraps to row 2
+const TECNICHE_MAX_COLS = 12;
 const GAP               = 3;
 const PAD_X             = 30;
 const PAD_TOP           = 14;
 const HDR_H             = 52;
 const SEP_H             = 1;
 const LEG_H             = 24;
-const EXTRA_GAP         = 20;   // vertical gap between main grid and tecniche grid
-const SEP_LINE_H        = 12;   // extra space around the separator line between grids
+const EXTRA_GAP         = 20;
+const SEP_LINE_H        = 12;
 const PANEL_W           = 300;
 const PANEL_PAD         = 16;
 
@@ -193,7 +179,7 @@ let extraCells = [];
 let totalCols  = 0;
 let maxMainCol = 0;
 let maxExtraCol = 0;
-let extraRows   = 1;  // how many rows the tecniche block actually uses
+let extraRows   = 1;
 
 let activeFilter  = 'all';
 let selectedGenre = null;
@@ -204,6 +190,8 @@ let panelX        = 0;
 let panelTargetX  = 0;
 
 // ── Packing helpers ──────────────────────────────────────────
+// Packs ONLY the sub-genre items (all items in each group's items array —
+// the category "padre" items have already been removed from GENRE_GROUPS above)
 function packGenres(groups, maxR) {
   const placed = [];
   let col = 1, row = 1;
@@ -217,7 +205,6 @@ function packGenres(groups, maxR) {
   return placed;
 }
 
-// Tecniche: pack into rows of TECNICHE_MAX_COLS, then start a new row-band
 function packTechniques(items, maxCols) {
   const placed = [];
   let col = 1, row = 1;
@@ -243,31 +230,22 @@ function buildCells() {
   maxExtraCol = packedExtra.reduce((m, p) => max(m, p.col), 1);
   extraRows   = packedExtra.reduce((m, p) => max(m, p.row), 1);
 
-  // Total logical cols: main cols vs tecniche cols (tecniche starts at col 1, same grid)
   totalCols = max(maxMainCol, maxExtraCol);
 
-  // ── Cell size ──
-  // MODIFICA DIMENSIONI CELLE: sottraiamo px extra qui per dare più aria
-  // cw: -3 rispetto al massimo che riempirebbe; ch: -4 rispetto al massimo
   cw = floor((availW - GAP * (totalCols - 1)) / totalCols) - 3;
   cw = max(cw, 20);
 
-  // availH split: MAX_ROWS main rows + extraRows extra rows + gap
   const totalRows  = MAX_ROWS + extraRows;
   const totalGaps  = totalRows * GAP + EXTRA_GAP + SEP_LINE_H * 2;
   ch = floor((availH - PAD_TOP - totalGaps) / totalRows) - 4;
   ch = max(ch, 18);
 
-  // Y origins
   const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
   const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
 
-  // X: centre main grid, centre extra grid independently
-  const fullGridW  = totalCols * cw + (totalCols - 1) * GAP;
   const mainGridW  = maxMainCol  * cw + (maxMainCol  - 1) * GAP;
   const extraGridW = maxExtraCol * cw + (maxExtraCol - 1) * GAP;
 
-  // Centre both grids within available width
   const centreX   = PAD_X + availW / 2;
   const mainOffX  = centreX - mainGridW  / 2;
   const extraOffX = centreX - extraGridW / 2;
@@ -336,9 +314,9 @@ function drawSeparator() {
 // ── Legend ───────────────────────────────────────────────────
 function drawLegend() {
   const cats = [
-    ['all',        [136,136,136], 'Tutti'],
+    ['all',        [136,136,136], ' TUTTI'],
     ['science',    CATS.science.sym,      CATS.science.abbr],
-    ['landscape',  CATS.landscape.sym,    'Archit.'],
+    ['landscape',  CATS.landscape.sym,    ' ARCHIT.'],
     ['nature',     CATS.nature.sym,       CATS.nature.abbr],
     ['landscape2', CATS.landscape2.sym,   CATS.landscape2.abbr],
     ['astro',      CATS.astro.sym,        CATS.astro.abbr],
@@ -372,7 +350,7 @@ function drawLegend() {
     rect(x + 4, startY + LEG_H / 2 - 3, 6, 6, 1);
 
     fill(isActive ? 195 : 82, isActive ? 193 : 79, isActive ? 189 : 75);
-    textSize(8.5);
+    textSize(9.8);
     textAlign(LEFT, CENTER);
     textStyle(NORMAL);
     text(label, x + 13, startY + LEG_H / 2);
@@ -398,34 +376,27 @@ function drawRowColLabels() {
   textSize(8);
   fill(55, 52, 48);
 
-  // Main: row labels (left)
   textAlign(RIGHT, CENTER);
   for (let r = 1; r <= MAX_ROWS; r++) {
     const y = yMainStart + (r - 1) * (ch + GAP) + ch / 2;
     text(r, mainOffX - 6, y);
   }
 
-  // Main: col labels (top) — shared with tecniche, no need to repeat
   textAlign(CENTER, BOTTOM);
   for (let c = 1; c <= maxMainCol; c++) {
     const x = mainOffX + (c - 1) * (cw + GAP) + cw / 2;
     text(c, x, yMainStart - 3);
   }
 
-  // Tecniche: row labels — offset as 7, 8 (continuing numbering from main)
   textAlign(RIGHT, CENTER);
   for (let r = 1; r <= extraRows; r++) {
     const y = yExtraStart + (r - 1) * (ch + GAP) + ch / 2;
     text(MAX_ROWS + r, extraOffX - 6, y);
   }
-  // Tecniche: col labels — only if extraGridW > mainGridW (more cols than main)
-  // Otherwise the main col labels already cover them since grids are independent
-  // We do draw them since extra grid may be centred differently
+
   textAlign(CENTER, BOTTOM);
   for (let c = 1; c <= maxExtraCol; c++) {
     const x = extraOffX + (c - 1) * (cw + GAP) + cw / 2;
-    // Only draw if this col label won't overlap the main ones above
-    // (they share the same col numbers 1..12)
     text(c, x, yExtraStart - 3);
   }
 }
@@ -435,7 +406,6 @@ function drawGridSeparator() {
   if (!mainCells.length || !extraCells.length) return;
 
   const yMainStart  = HDR_H + SEP_H + LEG_H + 10 + PAD_TOP;
-  const yExtraStart = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP + SEP_LINE_H;
   const sepY        = yMainStart + MAX_ROWS * (ch + GAP) + EXTRA_GAP / 2 + SEP_LINE_H / 2;
 
   const availW     = windowWidth - PAD_X * 2 - (panelOpen ? PANEL_W : 0);
@@ -454,7 +424,7 @@ function drawGridSeparator() {
   noStroke();
 }
 
-// ── Tecniche section label (vertical, left of tecniche block) ─
+// ── Tecniche section label ────────────────────────────────────
 function drawExtraLabel() {
   if (!extraCells.length) return;
 
@@ -534,7 +504,7 @@ function drawCell(cell) {
   textAlign(CENTER, CENTER);
   text(g.symbol, cell.w / 2, cell.h * 0.43);
 
-  const nameSz = max(4.5, min(cw * 0.10, 7.5));
+  const nameSz = max(5.5, min(cw * 0.12, 9));
   textSize(nameSz);
   textStyle(NORMAL);
   fill(118, 115, 110, 255 * dim);
@@ -589,44 +559,6 @@ function drawWrappedTextCentered(txt, cx, y, maxW, lineH) {
   if (line) text(line, cx, cy);
 }
 
-function drawImagePlaceholder(x, y, w, h, g) {
-  const c  = CATS[g.cat] || CATS.science;
-  const cx = x + w / 2;
-  const icY = y + h * 0.28;
-  const sz  = min(w, h) * 0.13;
-
-  fill(16, 16, 16);
-  stroke(26, 26, 24); strokeWeight(0.5);
-  rect(x, y, w, h, 2);
-  noStroke();
-
-  fill(c.bg[0], c.bg[1], c.bg[2], 55);
-  rect(x, y + h - 3, w, 3, 0, 0, 2, 2);
-
-  fill(c.sym[0], c.sym[1], c.sym[2], 35);
-  rectMode(CENTER);
-  rect(cx, icY, sz * 2.8, sz * 2, 3);
-  rect(cx - sz * 0.5, icY - sz * 1.1, sz * 1.1, sz * 0.7, 2);
-  rectMode(CORNER);
-  noFill();
-  stroke(c.sym[0], c.sym[1], c.sym[2], 50); strokeWeight(1);
-  ellipse(cx, icY, sz * 1.4, sz * 1.4);
-  noStroke();
-
-  if (g.imageDesc && g.imageDesc.length > 0) {
-    const descY = y + h * 0.52;
-    fill(c.sym[0], c.sym[1], c.sym[2], 45);
-    textSize(6.5); textAlign(CENTER, TOP); textStyle(NORMAL);
-    text('SOGGETTO IDEALE', cx, descY - 12);
-    stroke(c.border[0], c.border[1], c.border[2], 30); strokeWeight(0.5);
-    line(x + 10, descY - 4, x + w - 10, descY - 4);
-    noStroke();
-    fill(80, 77, 73);
-    textSize(8); textAlign(CENTER, TOP); textStyle(NORMAL);
-    drawWrappedTextCentered(g.imageDesc, cx, descY, w - 14, 12);
-  }
-}
-
 function drawPanel() {
   if (!selectedGenre && panelX >= width) return;
   const px = round(panelX);
@@ -640,9 +572,10 @@ function drawPanel() {
 
   if (!g) return;
 
-  const c      = CATS[g.cat] || CATS.science;
-  const tx     = px + PANEL_PAD;
-  const maxW   = PANEL_W - PANEL_PAD * 2;
+  const c       = CATS[g.cat] || CATS.science;
+  const tx      = px + PANEL_PAD;
+  const maxW    = PANEL_W - PANEL_PAD * 2;
+  const rEdge   = px + PANEL_W - PANEL_PAD;
   const navList = getNavigableList();
   const navIdx  = navList.findIndex(x => x.id === g.id);
   const hasPrev = navIdx > 0;
@@ -671,7 +604,7 @@ function drawPanel() {
 
   ty += 30;
   stroke(24, 24, 22); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  line(tx, ty, rEdge, ty);
   noStroke(); ty += 11;
 
   fill(58, 56, 53); textSize(8); textAlign(LEFT, TOP); textStyle(NORMAL);
@@ -692,21 +625,54 @@ function drawPanel() {
   text((g.categoria || c.label || g.cat).toUpperCase(), tx, ty); ty += 13;
 
   stroke(26, 26, 24); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  line(tx, ty, rEdge, ty);
   noStroke(); ty += 12;
 
   const imgW = PANEL_W - PANEL_PAD * 2;
   const imgH = round(imgW * 0.65);
+
   if (g.image && g.image.length > 0 && images[g.image]) {
-    image(images[g.image], tx, ty, imgW, imgH); ty += imgH + 8;
+    image(images[g.image], tx, ty, imgW, imgH);
   } else {
-    drawImagePlaceholder(tx, ty, imgW, imgH, g); ty += imgH + 4;
-    fill(38, 36, 33); textSize(6.5); textAlign(RIGHT, TOP); textStyle(NORMAL);
-    text('nessuna immagine', px + PANEL_W - PANEL_PAD, ty); ty += 12;
+    fill(16, 16, 16); stroke(26, 26, 24); strokeWeight(0.5);
+    rect(tx, ty, imgW, imgH, 2);
+    noStroke();
+    const c2  = CATS[g.cat] || CATS.science;
+    const cx2 = tx + imgW / 2;
+    const icY = ty + imgH * 0.42;
+    const sz  = min(imgW, imgH) * 0.10;
+    fill(c2.sym[0], c2.sym[1], c2.sym[2], 28);
+    rectMode(CENTER);
+    rect(cx2, icY, sz * 2.8, sz * 2, 3);
+    rect(cx2 - sz * 0.5, icY - sz * 1.1, sz * 1.1, sz * 0.7, 2);
+    rectMode(CORNER);
+    noFill(); stroke(c2.sym[0], c2.sym[1], c2.sym[2], 38); strokeWeight(1);
+    ellipse(cx2, icY, sz * 1.4, sz * 1.4);
+    noStroke();
+    fill(44, 42, 39); textSize(7); textAlign(CENTER, CENTER); textStyle(NORMAL);
+    text('nessuna immagine', cx2, ty + imgH * 0.70);
+  }
+
+  ty += imgH + 5;
+
+  const hasPhotographer = g.photographer && g.photographer.length > 0;
+  const hasDate         = g.date         && g.date.length         > 0;
+
+  if (hasPhotographer || hasDate) {
+    const creditParts = [];
+    if (hasPhotographer) creditParts.push('© ' + g.photographer);
+    if (hasDate)         creditParts.push(g.date);
+    const creditLine = creditParts.join('  ·  ');
+
+    fill(58, 56, 53); textSize(7.5); textAlign(RIGHT, TOP); textStyle(NORMAL);
+    text(creditLine, rEdge, ty);
+    ty += 13;
+  } else {
+    ty += 3;
   }
 
   stroke(26, 26, 24); strokeWeight(0.5);
-  line(tx, ty, px + PANEL_W - PANEL_PAD, ty);
+  line(tx, ty, rEdge, ty);
   noStroke(); ty += 10;
 
   fill(100, 97, 93); textSize(9); textStyle(NORMAL); textAlign(LEFT, TOP);
